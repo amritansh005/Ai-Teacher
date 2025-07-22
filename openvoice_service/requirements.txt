@@ -1,0 +1,11 @@
+torch>=2.0.0
+transformers>=4.53.0
+redis
+fastapi
+uvicorn
+pydantic
+sounddevice
+numpy==1.22.0
+python-dotenv
+requests
+nltk>=3.8

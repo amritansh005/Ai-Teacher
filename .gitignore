@@ -1,0 +1,36 @@
+# Exclude audio files
+*.wav
+*.mp3
+*.flac
+*.ogg
+*.m4a
+
+# Exclude model files and folders
+checkpoints/
+processed/
+*.pth
+*.pt
+*.bin
+*.ckpt
+*.onnx
+*.npz
+*.h5
+*.tflite
+
+# Exclude virtual environments
+venv-*/
+ai/
+__pycache__/
+*.pyc
+
+# Exclude logs
+logs/
+chatbot_service/logs/
+openvoice_service/temp_audio_session_*.wav
+
+# Exclude Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Exclude OS files
+.DS_Store
+Thumbs.db

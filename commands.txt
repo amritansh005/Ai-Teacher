@@ -1,0 +1,87 @@
+.\ai\Scripts\Activate.ps1- activate virtual environment
+
+Process to install requirements.txt
+git clone https://github.com/myshell-ai/OpenVoice.git - Clone open voice repository
+cd OpenVoice
+pip install -r requirements.txt
+pip install -e . 
+
+pip install -U funasr
+
+
+funasr:
+py -3.10 -m venv venv-funasr
+.\venv-funasr\Scripts\Activate.ps1
+pip install -U funasr
+pip install -r requirements-funasr.txt
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+
+open voice
+py -3.10 -m venv venv-openvoice
+.\venv-openvoice\Scripts\Activate.ps1
+pip install nltk>=3.8
+pip install -e ./OpenVoice --no-deps
+pip install -r requirements-openvoice.txt
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+
+Set-Location "C:\Users\PC\Desktop\ai\funasr_service"
+& "..\venv-funasr\Scripts\Activate.ps1"
+Write-Host "Starting FunASR Service..." -ForegroundColor Green
+python asr_server.py
+
+
+Set-Location "C:\Users\PC\Desktop\ai\openvoice_service"
+& "..\venv-openvoice\Scripts\Activate.ps1"
+Write-Host "Starting OpenVoice Service..." -ForegroundColor Green
+python tts_server.py
+
+
+Set-Location "C:\Users\PC\Desktop\ai\chatbot_service"
+& "..\venv-funasr\Scripts\Activate.ps1"
+Write-Host "Starting Main Orchestrator..." -ForegroundColor Green
+python main_orchestrator.py
+
+
+Create chatbot virtual environment:
+cd C:\Users\PC\Desktop\ai\chatbot_service
+py -3.10 -m venv venv-chatbot
+.\venv-chatbot\Scripts\Activate.ps1
+
+For redis:
+wsl --install
+sudo apt update
+sudo apt install redis-server
+sudo service redis-server start
+Testing:
+redis-cli
+127.0.0.1:6379> ping
+PONG
+
+
+For asr and tts service run after activating virtual environment
+$env:PYTHONPATH="C:\Users\PC\Desktop\ai"
+py -3.10 asr_server.py
+
+$env:PYTHONPATH="C:\Users\PC\Desktop\ai"
+py -3.10 tts_server.py
+
+cd C:\Users\PC\Desktop\ai\chatbot_service
+..\venv-chatbot\Scripts\Activate.ps1
+pip install -r requirements-chatbot.txt  # Should contain modern transformers etc.
+py -3.10 main_orchestrator.py
+
+$env:PYTHONPATH="C:\Users\PC\Desktop\ai"
+.\venv-chatbot\Scripts\Activate.ps1
+python chatbot_service\main_orchestrator.py
+
+
+Frontend:
+start frontend/index.html
+
+python -m http.server 8080
+
+http://localhost:8080/frontend/index.html
+
+ollama serve

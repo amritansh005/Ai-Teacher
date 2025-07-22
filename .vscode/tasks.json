@@ -1,0 +1,62 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start FunASR Service",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoLogo",
+                "-Command",
+                "cd ${workspaceFolder}\\funasr_service; ${workspaceFolder}\\venv-funasr\\Scripts\\Activate.ps1; py -3.10 asr_server.py"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "Start OpenVoice Service",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoLogo",
+                "-Command",
+                "cd ${workspaceFolder}\\openvoice_service; ${workspaceFolder}\\venv-openvoice\\Scripts\\Activate.ps1; py -3.10 tts_server.py"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "Start Chatbot Service",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoLogo",
+                "-Command",
+                "cd ${workspaceFolder}\\chatbot_service; ${workspaceFolder}\\venv-chatbot\\Scripts\\Activate.ps1; py -3.10 main_orchestrator.py"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "Start All Services",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Start FunASR Service",
+                "Start OpenVoice Service",
+                "Start Chatbot Service"
+            ],
+            "presentation": {
+                "reveal": "always"
+            }
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+torch>=2.0.0
+transformers>=4.53.0
+funasr
+redis
+fastapi
+uvicorn
+pydantic
+websockets
+sounddevice
+numpy
+python-dotenv
+nltk
+# Note: OpenVoice excluded from this environment

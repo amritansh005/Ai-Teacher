@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Teacher</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 AI Teacher</h1>
+            <div class="session-info">
+                <span id="session-id">Session: Not Connected</span>
+                <span id="connection-status" class="status-disconnected">Disconnected</span>
+            </div>
+        </header>
+        
+        <main>
+            <div class="chat-container">
+                <div id="chat-messages" class="chat-messages"></div>
+                
+                <!-- Audio player with controls -->
+                <audio id="tts-audio" controls style="width: 100%; margin: 10px 0;"></audio>
+                
+                <div class="chat-controls">
+                    <div class="input-section">
+                        <input type="text" id="text-input" placeholder="Type your question or click Voice to speak..." />
+                        <button id="send-text-btn" class="btn-primary">Send</button>
+                    </div>
+                    <div class="voice-controls">
+                        <button id="voice-btn" class="btn-voice">🎤 Start Voice</button>
+                        <button id="interrupt-btn" class="btn-interrupt" disabled>✋ Interrupt</button>
+                        <button id="stop-btn" class="btn-stop">🛑 Stop</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="status-panel">
+                    <h3>Status</h3>
+                    <div class="status-item">
+                        <label>Current State:</label>
+                        <span id="current-state">Idle</span>
+                    </div>
+                    <div class="status-item">
+                        <label>Emotion:</label>
+                        <span id="current-emotion">default</span>
+                    </div>
+                    <div class="status-item">
+                        <label>Services:</label>
+                        <div id="service-status">Checking...</div>
+                    </div>
+                </div>
+                
+                <div class="controls-panel">
+                    <h3>Controls</h3>
+                    <button id="clear-session-btn" class="btn-secondary">Clear Conversation</button>
+                    <button id="download-history-btn" class="btn-secondary">Download History</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
