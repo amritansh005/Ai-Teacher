@@ -88,8 +88,8 @@ async def ws_endpoint(ws: WebSocket, session_id: str):
     
     # Configuration
     CHUNK_SIZE = 512  # Exactly 512 samples for 16kHz as required by Silero
-    SILENCE_THRESHOLD = 0.5  # 500ms of silence to end speech
-    MIN_SPEECH_DURATION = 0.3  # Minimum 300ms of speech
+    SILENCE_THRESHOLD = 2.0  # 1 second of silence to end speech
+    MIN_SPEECH_DURATION = 0.0  # Allow any speech duration, even single words
     VAD_THRESHOLD = 0.5  # Speech probability threshold
     
     print("🎤 Waiting for audio from frontend...")
@@ -159,6 +159,7 @@ async def ws_endpoint(ws: WebSocket, session_id: str):
                                                 is_final=True,
                                                 encoder_chunk_look_back=4,
                                                 decoder_chunk_look_back=1,
+                                                segmentation="intelligent"  # Enable intelligent segmentation
                                             )
                                             
                                             print(f"[DEBUG] ASR result: {result}")
